@@ -1,0 +1,88 @@
+
+> taskflow-ai-agent-ui@1.0.0 dev
+> vite
+
+
+  [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m3750[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[2m2:32:04 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/components/GCSBrowser.jsx, /src/components/FileUpload.jsx, /src/components/TaskTable.jsx, /src/components/TaskCard.jsx[22m
+[2m2:32:10 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/components/GCSBrowser.jsx, /src/components/FileUpload.jsx, /src/components/TaskTable.jsx, /src/components/TaskCard.jsx[22m
+[2m2:32:19 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FileUpload.jsx, /src/index.css[22m
+[2m2:32:24 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FileUpload.jsx, /src/index.css[22m
+[2m2:32:30 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FileUpload.jsx, /src/index.css[22m
+[2m2:32:40 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FileUpload.jsx, /src/index.css[22m
+[2m3:08:38 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/components/GCSBrowser.jsx, /src/components/FileUpload.jsx, /src/components/TaskTable.jsx, /src/components/TaskCard.jsx[22m
+[2m3:08:38 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FileUpload.jsx, /src/index.css[22m
+[2m3:08:38 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/components/GCSBrowser.jsx, /src/components/FileUpload.jsx, /src/components/TaskTable.jsx, /src/components/TaskCard.jsx[22m
+[2m3:08:38 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FileUpload.jsx, /src/index.css[22m
+[2m3:11:23 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/components/GCSBrowser.jsx, /src/components/FileUpload.jsx, /src/components/TaskTable.jsx, /src/components/TaskCard.jsx[22m
+[2m3:11:23 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FileUpload.jsx, /src/index.css[22m
+[2m3:11:23 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/components/GCSBrowser.jsx, /src/components/FileUpload.jsx, /src/components/TaskTable.jsx, /src/components/TaskCard.jsx[22m
+[2m3:11:23 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FileUpload.jsx, /src/index.css[22m
+[2m4:34:44 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/components/GCSBrowser.jsx, /src/components/FileUpload.jsx, /src/components/TaskTable.jsx, /src/components/TaskCard.jsx[22m
+[2m4:34:51 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FileUpload.jsx, /src/index.css[22m
+[2m4:35:00 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FileUpload.jsx, /src/index.css[22m
+[2m4:35:07 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FileUpload.jsx, /src/index.css[22m
+[2m4:35:13 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FileUpload.jsx, /src/index.css[22m
+[2m4:35:25 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FileUpload.jsx, /src/index.css[22m
+[2m4:35:32 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/GCSBrowser.jsx, /src/index.css[22m
+[2m4:35:43 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/GCSBrowser.jsx, /src/index.css[22m
+[2m4:35:49 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/GCSBrowser.jsx, /src/index.css[22m
+[2m4:35:58 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/GCSBrowser.jsx, /src/index.css[22m
+[2m4:49:48 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.jsx, /src/index.css[22m
+[2m4:50:30 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FileUpload.jsx, /src/index.css[22m
+[2m4:50:36 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TaskCard.jsx, /src/index.css[22m
+[2m4:50:41 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TaskCard.jsx, /src/index.css[22m
+[2m4:50:46 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TaskCard.jsx, /src/index.css[22m
+[2m4:50:52 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TaskCard.jsx, /src/index.css[22m
+[2m4:50:59 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TaskTable.jsx, /src/index.css[22m
+[2m4:51:04 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TaskTable.jsx, /src/index.css[22m
+[2m4:51:18 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TaskTable.jsx, /src/index.css[22m
+[2m4:51:43 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TaskTable.jsx, /src/index.css[22m
+[2m4:51:48 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TaskTable.jsx, /src/index.css[22m
+[2m4:51:53 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TaskTable.jsx, /src/index.css[22m
+[2m4:51:57 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TaskTable.jsx, /src/index.css[22m
+[2m4:52:02 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TaskTable.jsx, /src/index.css[22m
+[2m4:52:06 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TaskTable.jsx, /src/index.css[22m
+[2m5:09:36 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.jsx, /src/index.css[22m
+[2m5:09:36 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/components/GCSBrowser.jsx, /src/components/FileUpload.jsx, /src/components/TaskTable.jsx, /src/components/TaskCard.jsx[22m
+[2m5:09:36 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/components/GCSBrowser.jsx, /src/components/FileUpload.jsx, /src/components/TaskTable.jsx, /src/components/TaskCard.jsx[22m
+[2m5:09:36 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FileUpload.jsx, /src/index.css[22m
+[2m5:09:37 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FileUpload.jsx, /src/index.css[22m
+[2m5:09:37 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/GCSBrowser.jsx, /src/index.css[22m
+[2m5:09:37 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/GCSBrowser.jsx, /src/index.css[22m
+[2m5:09:37 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TaskCard.jsx, /src/index.css[22m
+[2m5:09:37 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TaskTable.jsx, /src/index.css[22m
+[2m5:09:37 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/GCSBrowser.jsx, /src/index.css[22m
+[2m5:13:24 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.jsx, /src/index.css[22m
+[2m5:13:25 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/components/FileUpload.jsx, /src/components/TaskTable.jsx, /src/components/TaskCard.jsx[22m
+[2m5:13:26 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.jsx, /src/index.css[22m
+[2m5:13:32 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FileUpload.jsx, /src/index.css[22m
+[2m5:13:32 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/components/FileUpload.jsx, /src/components/TaskTable.jsx, /src/components/TaskCard.jsx[22m
+[2m5:13:33 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FileUpload.jsx, /src/index.css[22m
+[2m5:13:33 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/GCSBrowser.jsx, /src/index.css[22m
+[2m5:13:33 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TaskCard.jsx, /src/index.css[22m
+[2m5:13:33 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TaskTable.jsx, /src/index.css[22m
+[2m5:13:34 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TaskTable.jsx, /src/index.css[22m
+[2m5:33:20 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/components/FileUpload.jsx, /src/components/TaskTable.jsx, /src/components/TaskCard.jsx[22m
+[2m5:33:28 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FileUpload.jsx, /src/index.css[22m
+[2m5:33:46 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FileUpload.jsx, /src/index.css[22m
+[2m5:33:57 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FileUpload.jsx, /src/index.css[22m
+[2m5:34:06 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TaskTable.jsx, /src/index.css[22m
+[2m5:34:11 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TaskTable.jsx, /src/index.css[22m
+[2m5:34:26 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TaskTable.jsx, /src/index.css[22m
+[2m5:34:32 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TaskTable.jsx, /src/index.css[22m
+[2m5:35:13 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TaskTable.jsx, /src/index.css[22m
+[2m5:35:37 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TaskTable.jsx, /src/index.css[22m
+[2m5:37:26 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FileUpload.jsx, /src/index.css[22m
+[2m5:37:26 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/components/FileUpload.jsx, /src/components/TaskTable.jsx, /src/components/TaskCard.jsx[22m
+[2m5:37:26 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TaskTable.jsx, /src/index.css[22m
+[2m5:37:36 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FileUpload.jsx, /src/index.css[22m
+[2m5:37:36 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/components/FileUpload.jsx, /src/components/TaskTable.jsx, /src/components/TaskCard.jsx[22m
+[2m5:37:36 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/TaskTable.jsx, /src/index.css[22m
+[2m6:00:13 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.jsx, /src/index.css[22m
+[2m6:00:17 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.jsx, /src/index.css[22m
+[2m6:00:53 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.jsx, /src/index.css[22m
+[2m6:01:04 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.jsx, /src/index.css[22m
