@@ -1,289 +1,135 @@
-# DEAH
-Data engineering agent hub
+<div align="center">
 
-# Requirements-POD — TaskFlow AI Agent
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&pause=1000&color=6E56CF&center=true&vCenter=true&width=600&lines=Hi%2C+I'm+Pavithra+%F0%9F%91%8B;AI+%26+Data+Engineer;Building+LLM-powered+agents+%26+pipelines)](https://git.io/typing-svg)
 
-A full-stack application that ingests requirement documents, extracts structured tasks using an LLM, and optionally syncs them to Jira.
+</div>
 
 ---
 
-## Project Structure
+### About me
+
+I'm an **AI & Data Engineer** building end-to-end intelligent systems — from document ingestion pipelines to multi-agent LLM orchestration. Currently working on **DEAH** (Data Engineering Agent Hub), a platform where AI agents extract structured knowledge from unstructured documents and sync directly to Jira.
+
+- 🔭 &nbsp; Building [`requirement_agent`](https://github.com/pavithrak0209/requirement_agent) — TaskFlow AI Agent: upload docs → 9-stage AI extraction pipeline → Jira
+- 🧠 &nbsp; Working with `claude-sonnet-4-6` via Anthropic SDK + `claude-agent-sdk`, async LLM orchestration
+- 🗄️ &nbsp; Production DB: **MySQL** via `PyMySQL` + `cloud-sql-python-connector` on Cloud SQL
+- ☁️ &nbsp; Cloud: **Google Cloud Storage**, Cloud SQL, GCP VM deployments
+- 🛠️ &nbsp; Stack: Python · FastAPI · SQLAlchemy 2.x · Alembic · React · Vite · Docker
+- 🔗 &nbsp; Integrations: **Jira Cloud REST API v3** · `httpx` async client · nginx reverse proxy
+
+---
+
+### Tech stack
+
+**AI / LLM**
+
+![Claude](https://img.shields.io/badge/Claude_Sonnet_4.6-D97757?style=flat-square&logo=anthropic&logoColor=white)
+![Anthropic SDK](https://img.shields.io/badge/anthropic_SDK-191919?style=flat-square&logo=anthropic&logoColor=white)
+![Claude Agent SDK](https://img.shields.io/badge/claude--agent--sdk-6E56CF?style=flat-square&logoColor=white)
+
+**Backend**
+
+![Python](https://img.shields.io/badge/Python_3.11+-3776AB?style=flat-square&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy_2.x-D71F00?style=flat-square&logo=sqlalchemy&logoColor=white)
+![Alembic](https://img.shields.io/badge/Alembic-6E56CF?style=flat-square&logoColor=white)
+![Pydantic](https://img.shields.io/badge/Pydantic_v2-E92063?style=flat-square&logo=pydantic&logoColor=white)
+![httpx](https://img.shields.io/badge/httpx_async-009688?style=flat-square&logoColor=white)
+![uvicorn](https://img.shields.io/badge/Uvicorn-499848?style=flat-square&logoColor=white)
+
+**Database**
+
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white)
+![PyMySQL](https://img.shields.io/badge/PyMySQL-4479A1?style=flat-square&logo=mysql&logoColor=white)
+![Cloud SQL](https://img.shields.io/badge/Cloud_SQL_(MySQL)-4285F4?style=flat-square&logo=googlecloud&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite_(dev)-003B57?style=flat-square&logo=sqlite&logoColor=white)
+
+**Storage & Cloud**
+
+![GCS](https://img.shields.io/badge/Google_Cloud_Storage-4285F4?style=flat-square&logo=googlecloud&logoColor=white)
+![GCP](https://img.shields.io/badge/GCP_VM-4285F4?style=flat-square&logo=googlecloud&logoColor=white)
+![Cloud SQL Connector](https://img.shields.io/badge/cloud--sql--python--connector-4285F4?style=flat-square&logo=googlecloud&logoColor=white)
+
+**Document Parsing**
+
+![PyMuPDF](https://img.shields.io/badge/PyMuPDF_(PDF)-FF0000?style=flat-square&logoColor=white)
+![python-docx](https://img.shields.io/badge/python--docx_(DOCX)-2B579A?style=flat-square&logo=microsoftword&logoColor=white)
+
+**Frontend & Infra**
+
+![React](https://img.shields.io/badge/React_+_Vite-61DAFB?style=flat-square&logo=react&logoColor=black)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
+![nginx](https://img.shields.io/badge/nginx-009639?style=flat-square&logo=nginx&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker_+_Compose-2496ED?style=flat-square&logo=docker&logoColor=white)
+![Jira](https://img.shields.io/badge/Jira_Cloud_API_v3-0052CC?style=flat-square&logo=jira&logoColor=white)
+
+**Testing**
+
+![pytest](https://img.shields.io/badge/pytest_+_pytest--asyncio-0A9EDC?style=flat-square&logo=pytest&logoColor=white)
+![respx](https://img.shields.io/badge/respx_(httpx_mocking)-6E56CF?style=flat-square&logoColor=white)
+
+---
+
+### Featured project — TaskFlow AI Agent (DEAH · Requirements POD)
+
+<a href="https://github.com/pavithrak0209/requirement_agent">
+  <img align="center" src="https://github-readme-stats.vercel.app/api/pin/?username=pavithrak0209&repo=requirement_agent&theme=default&hide_border=true&title_color=6E56CF&icon_color=6E56CF" />
+</a>
+
+**What it does:** Upload a requirements document (PDF, DOCX, TXT, MD, VTT, SRT) → a 9-stage AI pipeline powered by `claude-sonnet-4-6` extracts, deduplicates, and scores structured tasks → review & edit in the React UI → push Jira tickets with one click.
+
+**9-stage extraction pipeline:**
 
 ```
-Requirements-POD/
-├── core/                           # All agent and shared backend code
-│   ├── common/                     # Shared utilities (reusable across agents)
-│   │   ├── database/               # Generic DB session factory
-│   │   ├── llm/                    # LLM abstraction (Claude, Mock)
-│   │   ├── scrum/                  # Jira integration
-│   │   └── storage/                # Storage abstraction (local, GCS)
-│   └── requirements_pod/           # Requirements POD agent
-│       ├── main.py                 # FastAPI entry point
-│       ├── config.py               # Pydantic Settings
-│       ├── api/v1/                 # REST endpoints: health, files, tasks
-│       ├── db/                     # SQLAlchemy models, session, repository
-│       ├── schemas/                # Pydantic request/response models
-│       ├── services/
-│       │   └── extraction/         # 9-stage extraction pipeline
-│       └── migrations/             # Alembic migrations
-│           └── versions/
-│               ├── 001_initial.py
-│               └── 002_add_task_fields.py
-│
-├── webapp/                         # All frontend UIs
-│   └── requirements_pod/           # Requirements POD React + Vite UI
-│       ├── src/
-│       ├── nginx.conf
-│       └── Dockerfile
-│
-├── tests/                          # Integration tests
-│   ├── conftest.py
-│   ├── fixtures/
-│   └── test_*.py
-│
-├── requirements.txt
-├── config.env                      # Committed non-secret defaults
-├── .env                            # Local secrets (gitignored)
-├── alembic.ini
-├── docker-compose.yml
-└── Dockerfile                      # API image
+Input Normalisation → Token-aware Chunker (3000 tok, 200 overlap)
+→ Parallel LLM Extraction (asyncio + Semaphore, retry w/ exponential backoff)
+→ Local Dedup (Jaccard similarity, threshold 0.75)
+→ Global Task Pool
+→ Graph Similarity Merge (Union-Find, threshold 0.55)
+→ Temporal Reasoning (override & supersession detection)
+→ Confidence Scoring
+→ Output Normalisation → Pydantic schemas → MySQL
 ```
 
----
-
-## Prerequisites
-
-- Python 3.11+
-- Node.js 20+
-- Docker & Docker Compose (for containerised setup)
-
----
-
-## Local Development Setup
-
-### 1. Clone & configure environment
-
-```bash
-git clone <repo-url>
-cd Requirements-POD
-
-# Create secrets file from template
-cp .env.example .env
-# Edit .env and fill in ANTHROPIC_API_KEY and any other secrets
-```
-
-### 2. Backend
-
-```bash
-# Create and activate a virtual environment
-python -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Apply database migrations
-alembic upgrade head
-
-# Start the API server (runs on http://localhost:8000)
-uvicorn core.requirements_pod.main:app --reload
-```
-
-Configuration is loaded from `config.env`. Key defaults:
-
-| Variable | Default | Description |
-|---|---|---|
-| `API_PORT` | `8000` | Backend port |
-| `DATABASE_URL` | `sqlite:///./taskflow.db` | SQLite (swap for Postgres) |
-| `STORAGE_PROVIDER` | `local` | `local` or `gcs` |
-| `LLM_PROVIDER` | `mock` | `mock` or `claude` |
-| `LLM_MODEL` | `claude-sonnet-4-20250514` | Model used for extraction |
-| `MAX_UPLOAD_SIZE_MB` | `50` | Max upload size |
-| `ALLOWED_EXTENSIONS` | `pdf,docx,txt,md,vtt,srt` | Accepted file types |
-
-To use the real LLM, set `LLM_PROVIDER=claude` and `ANTHROPIC_API_KEY` in `.env`.
-
-### 3. Frontend
-
-```bash
-cd webapp/requirements_pod
-
-# Install dependencies
-npm install
-
-# Start the dev server (runs on http://localhost:5173)
-npm run dev
-```
-
-Vite proxies all `/api` requests to `http://localhost:8000`, so both servers must be running simultaneously.
+**Architecture highlights:**
+- LLM abstraction layer: `ClaudeProvider` (prod, `claude-agent-sdk`) + `MockLLMProvider` (dev, no API key needed)
+- Storage abstraction: `GCSProvider` (Google Cloud Storage) + `LocalStorageProvider` (dev)
+- DB: **MySQL on Cloud SQL** via `cloud-sql-python-connector[pymysql]` in prod | SQLite in dev — one config line swap
+- API: FastAPI REST (`/api/v1`) with live SSE extraction progress streaming, port `8001`
+- Jira: push tasks with type mapping, priority, story points (`customfield_10016`), acceptance criteria, start date (`customfield_10015`) to `prodapt-deah.atlassian.net`
+- Containerised: Docker + `docker-compose` (API on `8000`, UI on `5173` via nginx)
+- Config: `pydantic-settings`, env vars only — no committed secrets
 
 ---
 
-## Docker Setup
+### GitHub stats
 
-Runs both the API and UI in containers with nginx as a reverse proxy.
+<div align="center">
 
-```bash
-# Build and start all services
-docker-compose up --build
+<img height="160" src="https://github-readme-stats.vercel.app/api?username=pavithrak0209&show_icons=true&hide_border=true&title_color=6E56CF&icon_color=6E56CF&count_private=true&include_all_commits=true" />
+&nbsp;&nbsp;
+<img height="160" src="https://github-readme-stats.vercel.app/api/top-langs/?username=pavithrak0209&layout=compact&hide_border=true&title_color=6E56CF&langs_count=6" />
 
-# Run in background
-docker-compose up --build -d
-
-# Stop and remove containers
-docker-compose down
-```
-
-| Service | Host port | Description |
-|---|---|---|
-| `api` | `8000` | FastAPI backend |
-| `ui` | `5173` | React app served by nginx |
-
-The UI container's nginx proxies `/api/` requests to the `api` service internally — no additional configuration needed.
+</div>
 
 ---
 
-## Database Migrations
+### Connect
 
-```bash
-# Apply all pending migrations
-alembic upgrade head
-
-# Roll back the last migration
-alembic downgrade -1
-
-# Generate a new migration after model changes
-alembic revision --autogenerate -m "describe change"
-```
-
-Alembic reads `DATABASE_URL` from `get_settings()` via `core/requirements_pod/migrations/env.py` — no shell export needed.
-
----
-
-## Running Tests
-
-```bash
-# All tests (no ANTHROPIC_API_KEY required — mock LLM is used)
-pytest
-
-# Integration tests only
-pytest tests/
-
-# Extraction pipeline unit tests
-pytest core/requirements_pod/services/extraction/tests/
-
-# Specific test file
-pytest tests/test_extraction.py
-```
+<a href="https://www.linkedin.com/in/k-pavithra/">
+  <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=flat-square&logo=linkedin&logoColor=white" />
+</a>
+&nbsp;
+<a href="mailto:pavithrakannan0209@gmail.com">
+  <img src="https://img.shields.io/badge/Gmail-EA4335?style=flat-square&logo=gmail&logoColor=white" />
+</a>
+&nbsp;
+<a href="tel:+12149608865">
+  <img src="https://img.shields.io/badge/+1_214_960_8865-25D366?style=flat-square&logo=whatsapp&logoColor=white" />
+</a>
 
 ---
 
-## API Endpoints
-
-Base URL: `http://localhost:8000/api/v1`
-
-| Method | Path | Description |
-|---|---|---|
-| `GET` | `/health` | Health check |
-| `POST` | `/files/upload` | Upload a requirements document |
-| `GET` | `/files/list` | List uploaded files |
-| `POST` | `/files/register` | Find-or-create DB record for a storage file |
-| `GET` | `/files/find?path=` | Look up DB record by storage path |
-| `DELETE` | `/files/storage?path=` | Delete a file from storage and its DB record |
-| `POST` | `/files/{id}/parse` | Parse file and extract tasks |
-| `GET` | `/files/{id}/progress` | Poll live extraction progress |
-| `GET` | `/files/{id}/status` | Get file processing status |
-| `GET` | `/tasks` | List extracted tasks |
-| `GET` | `/tasks/{id}` | Get a single task |
-| `PATCH` | `/tasks/{id}` | Update a task |
-| `DELETE` | `/tasks/{id}` | Soft-delete a task |
-| `POST` | `/tasks/export` | Export tasks (JSON/CSV/MD) |
-| `POST` | `/tasks/jira-push` | Push tasks to Jira |
-
-Interactive docs: `http://localhost:8000/docs`
-
----
-
-## Task Fields
-
-Each extracted task carries the following fields. All Jira fields default to blank when they cannot be determined from the document.
-
-| Field | Source | Description |
-|---|---|---|
-| `task_heading` | AI extracted | Short summary (≤80 chars, imperative verb) |
-| `description` | AI extracted | Detailed description |
-| `task_type` | AI extracted | `bug` / `story` / `task` / `subtask` |
-| `priority` | AI extracted | `critical` / `high` / `medium` / `low` |
-| `story_points` | AI extracted | Fibonacci estimate (1,2,3,5,8,13,21) |
-| `acceptance_criteria` | AI extracted | Testable criteria (JSON list) |
-| `reporter` | AI extracted | Reported by (when mentioned in document) |
-| `sprint` | AI extracted | Sprint name (when mentioned in document) |
-| `fix_version` | AI extracted | Release/version (when mentioned in document) |
-| `user_name` | User-set | Assignee (blank by default) |
-| `status` | System | `extracted` / `modified` / `pushed` / `deleted` |
-| `created_at` | System | Task creation timestamp |
-| `jira_id` | Jira push | Jira issue key after push |
-
----
-
-## Google Cloud Storage (optional)
-
-To store uploaded files in GCS instead of locally:
-
-1. Download a service account key JSON from Google Cloud Console
-2. Set in `config.env`:
-   ```
-   STORAGE_PROVIDER=gcs
-   GCS_BUCKET_NAME=your-bucket-name
-   GCS_PROJECT_ID=your-gcp-project-id
-   GCS_CREDENTIALS_PATH=./credentials/gcs-sa-key.json
-   ```
-
----
-
-## Jira Integration (optional)
-
-Set in `config.env`:
-
-```
-JIRA_BASE_URL=https://yourorg.atlassian.net
-JIRA_EMAIL=user@example.com
-JIRA_API_TOKEN=your-api-token
-JIRA_PROJECT_KEY=PROJ
-```
-
-Fields sent to Jira on push: summary, description (with acceptance criteria appended), issue type, priority, story points (`customfield_10016`), fix versions. The story-points custom field name (`customfield_10016`) is the Jira Software default — adjust in `core/common/scrum/jira.py` if your instance uses a different field ID.
-
-Then use the **Push to Jira** action in the UI or call `POST /api/v1/tasks/jira-push`.
-
----
-
-## UI Features
-
-### Upload tab
-- Drag-and-drop file upload (PDF, DOCX, TXT, MD, VTT, SRT)
-- Live progress bar during AI extraction (100% shown before navigating to Tasks)
-
-### Browse Files tab
-- Lists files from storage with date filter (defaults to last 2 days)
-- Per-file live progress bar during parsing
-- Delete files directly from storage
-- Batch parse up to 3 files simultaneously
-
-### Tasks tab
-- Table with sortable columns: Summary, Type, Priority, Story Points, Assigned To, Status, Created
-- Date filter defaults to last 7 days; filter by source file and user
-- Inline editing for type, priority, story points, assignee, status
-- Full edit modal (TaskCard) with all fields: description, acceptance criteria, reporter, sprint, fix version
-- Bulk export (JSON/CSV/Markdown) and Jira push
-
----
-
-## Adding a New Agent
-
-This repo is structured to support multiple independent agents sharing common utilities:
-
-1. Create `core/<agent_name>/` with its own `main.py`, `config.py`, `api/`, `db/`, `schemas/`, `services/`, `migrations/`
-2. Reuse `core/common/llm/`, `core/common/storage/`, `core/common/scrum/`, `core/common/database/`
-3. Create `webapp/<agent_name>/` for its UI
-4. Add a new service entry in `docker-compose.yml`
+<div align="center">
+  <img src="https://komarev.com/ghpvc/?username=pavithrak0209&style=flat-square&color=6E56CF&label=profile+views" />
+</div>
