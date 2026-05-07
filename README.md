@@ -1,6 +1,6 @@
 <div align="center">
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&pause=1000&color=6E56CF&center=true&vCenter=true&width=600&lines=Hi%2C+I'm+Pavithra+%F0%9F%91%8B;AI+%26+Data+Engineer;Building+LLM-powered+agents+%26+pipelines)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&pause=1000&color=6E56CF&center=true&vCenter=true&width=650&lines=Hi%2C+I'm+Pavithra+%F0%9F%91%8B;AI+%26+Data+Engineer;Building+LLM-powered+agents+%26+pipelines)](https://git.io/typing-svg)
 
 </div>
 
@@ -11,10 +11,10 @@
 I'm an **AI & Data Engineer** building end-to-end intelligent systems — from document ingestion pipelines to multi-agent LLM orchestration. Currently working on **DEAH** (Data Engineering Agent Hub), a platform where AI agents extract structured knowledge from unstructured documents and sync directly to Jira.
 
 - 🔭 &nbsp; Building [`requirement_agent`](https://github.com/pavithrak0209/requirement_agent) — TaskFlow AI Agent: upload docs → 9-stage AI extraction pipeline → Jira
-- 🧠 &nbsp; Working with `claude-sonnet-4-6` via Anthropic SDK + `claude-agent-sdk`, async LLM orchestration
-- 🗄️ &nbsp; Production DB: **MySQL** via `PyMySQL` + `cloud-sql-python-connector` on Cloud SQL
-- ☁️ &nbsp; Cloud: **Google Cloud Storage**, Cloud SQL, GCP VM deployments
-- 🛠️ &nbsp; Stack: Python · FastAPI · SQLAlchemy 2.x · Alembic · React · Vite · Docker
+- 🧠 &nbsp; Working with `claude-sonnet-4-6` via `anthropic` SDK + `claude-agent-sdk`, async LLM orchestration with `asyncio.Semaphore` + exponential backoff retry
+- 🗄️ &nbsp; Production DB: **MySQL** via `PyMySQL` + `cloud-sql-python-connector` on Cloud SQL | SQLite for local dev
+- ☁️ &nbsp; Cloud: **Google Cloud Storage** (GCS), Cloud SQL, GCP VM deployments; GCS path: `{GCS_PREFIX}/{user}/{YYYY-MM-DD}/{filename}_{yymmddHHMMSS}.ext`
+- 🛠️ &nbsp; Stack: Python 3.11 · FastAPI · SQLAlchemy 2.x · Alembic · Pydantic v2 · React + Vite · Docker
 - 🔗 &nbsp; Integrations: **Jira Cloud REST API v3** · `httpx` async client · nginx reverse proxy
 
 ---
@@ -76,29 +76,42 @@ I'm an **AI & Data Engineer** building end-to-end intelligent systems — from d
   <img align="center" src="https://github-readme-stats.vercel.app/api/pin/?username=pavithrak0209&repo=requirement_agent&theme=default&hide_border=true&title_color=6E56CF&icon_color=6E56CF" />
 </a>
 
-**What it does:** Upload a requirements document (PDF, DOCX, TXT, MD, VTT, SRT) → a 9-stage AI pipeline powered by `claude-sonnet-4-6` extracts, deduplicates, and scores structured tasks → review & edit in the React UI → push Jira tickets with one click.
+<br/><br/>
 
-**9-stage extraction pipeline:**
+**What it does:** Upload a requirements document (PDF, DOCX, TXT, MD, VTT, SRT, up to 50 MB) → a 9-stage AI pipeline powered by `claude-sonnet-4-6` ingests, deduplicates, temporally reasons, and confidence-scores structured tasks → review, inline-edit, and bulk-manage in the React UI → push Jira tickets with full field mapping in one click.
+
+#### 🔬 9-stage extraction pipeline (`core/requirements_pod/services/extraction/`)
 
 ```
-Input Normalisation → Token-aware Chunker (3000 tok, 200 overlap)
-→ Parallel LLM Extraction (asyncio + Semaphore, retry w/ exponential backoff)
-→ Local Dedup (Jaccard similarity, threshold 0.75)
-→ Global Task Pool
-→ Graph Similarity Merge (Union-Find, threshold 0.55)
-→ Temporal Reasoning (override & supersession detection)
-→ Confidence Scoring
-→ Output Normalisation → Pydantic schemas → MySQL
+Stage 1 │ Input Normalisation        strip null bytes, normalise line endings → plain UTF-8
+Stage 2 │ Token-aware Chunker        2000-token windows, 200-token overlap, no mid-sentence splits
+Stage 3 │ Parallel LLM Extraction    asyncio.Semaphore (max 5), exponential backoff retry (3 attempts)
+Stage 4 │ Local Dedup                Jaccard similarity per document (threshold 0.75)
+Stage 5 │ Global Task Pool           flatten all per-doc deduped tasks
+Stage 6 │ Graph Similarity Merge     Union-Find with path compression (threshold 0.55)
+Stage 7 │ Temporal Reasoning         override-marker & initial-marker detection across doc order
+Stage 8 │ Confidence Scoring         extraction score + cluster density + cross-source bonus + AC richness
+Stage 9 │ Output Normalisation       → TaskOut Pydantic schema → MySQL / SQLite
 ```
 
-**Architecture highlights:**
-- LLM abstraction layer: `ClaudeProvider` (prod, `claude-agent-sdk`) + `MockLLMProvider` (dev, no API key needed)
-- Storage abstraction: `GCSProvider` (Google Cloud Storage) + `LocalStorageProvider` (dev)
-- DB: **MySQL on Cloud SQL** via `cloud-sql-python-connector[pymysql]` in prod | SQLite in dev — one config line swap
-- API: FastAPI REST (`/api/v1`) with live SSE extraction progress streaming, port `8001`
-- Jira: push tasks with type mapping, priority, story points (`customfield_10016`), acceptance criteria, start date (`customfield_10015`) to `prodapt-deah.atlassian.net`
-- Containerised: Docker + `docker-compose` (API on `8000`, UI on `5173` via nginx)
-- Config: `pydantic-settings`, env vars only — no committed secrets
+Entry point: `parse_file()` — raises `RuntimeError` for empty/unreadable files; chunk failures log and return `[]` (partial results always preserved).
+
+#### 🏗️ Architecture highlights
+
+| Layer | Detail |
+|---|---|
+| **LLM** | `BaseLLMProvider` ABC → `ClaudeProvider` (prod, `claude-agent-sdk`) / `MockProvider` (dev, reads fixture JSON — no API key needed); per-request override via `?llm_provider=claude\|mock` |
+| **Storage** | `BaseStorageProvider` ABC → `GCSProvider` (prod, blocking I/O via `asyncio.to_thread()`) / `LocalProvider` (dev, `./local_storage/`) |
+| **Database** | MySQL on Cloud SQL via `cloud-sql-python-connector[pymysql]` (prod) — swap to SQLite with one `DATABASE_URL` change; ORM: `SourceFile` + `Task` models; soft-delete via `status=deleted`; `task_id` slug (`SRC-001`) generated via `MAX(task_id)` + retry on `IntegrityError` |
+| **Migrations** | Alembic: `001_initial` + `002_add_task_fields` (priority, reporter, sprint, fix_version, story_points, acceptance_criteria) |
+| **API** | FastAPI REST `/api/v1` — live SSE extraction progress `{stage, chunks_done, chunks_total, pct}`; JSON structured logging with `request_id` on every line |
+| **Jira** | `JiraService.push_task()` + `update_existing_task()` → Jira Cloud REST v3; sends summary, description+AC (ADF), issuetype, priority, `customfield_10016` (story points), fixVersions, sprint as label `sprint:<name>`; writes back `jira_id` + `jira_url`; result includes `action: "created"\|"updated"` |
+| **Frontend** | React + Vite SPA — Upload tab (drag-drop + live progress bar) / Browse Files tab (GCS browser, date filter, batch-parse up to 3 files) / Tasks tab (inline edit, collapsible filters, bulk export JSON/CSV/MD, Jira push confirm dialog) |
+| **Infra** | Docker + `docker-compose`; API `:8000`, UI `:5173` via nginx; `pydantic-settings` — env vars only, no committed secrets |
+
+#### 📋 Extracted task fields
+
+`task_heading` · `description` · `task_type` (bug/story/task/subtask) · `priority` (critical/high/medium/low) · `story_points` (Fibonacci 1–21) · `acceptance_criteria` (JSON list) · `reporter` · `sprint` · `fix_version` · `user_name` (assignee) · `jira_id`
 
 ---
 
