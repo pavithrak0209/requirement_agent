@@ -130,9 +130,19 @@ Located in `core/requirements_pod/services/extraction/`. Entry point: `parse_fil
 
 ## 📊 GitHub Stats
 
-![Pavithra's GitHub stats](https://github-readme-stats.vercel.app/api?username=pavithrak0209&show_icons=true&hide_border=true&title_color=6E56CF&icon_color=6E56CF&count_private=true&include_all_commits=true&theme=default)
-&nbsp;
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=pavithrak0209&layout=compact&hide_border=true&title_color=6E56CF&langs_count=6&theme=default)
+[![GitHub followers](https://img.shields.io/github/followers/pavithrak0209?style=flat-square&color=6E56CF&label=Followers&logo=github)](https://github.com/pavithrak0209?tab=followers)
+[![GitHub stars](https://img.shields.io/github/stars/pavithrak0209?style=flat-square&color=6E56CF&label=Total%20Stars&logo=github)](https://github.com/pavithrak0209)
+
+| Repo | Language | Stars |
+|------|----------|-------|
+| [requirement_agent](https://github.com/pavithrak0209/requirement_agent) | Python · JavaScript · Shell | ![Stars](https://img.shields.io/github/stars/pavithrak0209/requirement_agent?style=flat-square&color=6E56CF) |
+
+**Language breakdown (requirement_agent):**
+
+![Python](https://img.shields.io/badge/Python-66.9%25-3776AB?style=flat-square&logo=python&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-29.1%25-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
+![Shell](https://img.shields.io/badge/Shell-2.9%25-4EAA25?style=flat-square&logo=gnubash&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS-0.7%25-1572B6?style=flat-square&logo=css3&logoColor=white)
 
 ---
 
